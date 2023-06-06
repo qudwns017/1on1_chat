@@ -1,9 +1,10 @@
 import axios from "axios";
-import { ADD_CHAT } from "./type";
+import { ADD_ROOM } from "./type";
 
-export function addChat(dataToSubmit) {
+export function addRoom(dataToSubmit) {
   const request = axios
-    .post("http://localhost:5000/chat/create_chat", dataToSubmit)
+    // 앞에 5000 지정 안해주면 port 번호 3000으로 날아감
+    .post("http://localhost:5000/room/create_room", dataToSubmit)
     .then((response) => {
       console.log(response);
       return response.data;
@@ -13,7 +14,7 @@ export function addChat(dataToSubmit) {
       return err.response.data;
     });
   return {
-    type: ADD_CHAT,
+    type: ADD_ROOM,
     payload: request,
   };
 }

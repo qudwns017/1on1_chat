@@ -26,12 +26,12 @@ class Room extends Sequelize.Model {
       }
     );
   }
-  static associate(db) {
-    db.Room.hasMany(db.Chat, {
-      foreignKey: { name: "roomid", allowNull: true },
-      onDelete: "cascade",
-    });
-  }
+  // static associate(db) {
+  //   db.Room.hasMany(db.Chat, {
+  //     foreignKey: { name: "roomid", allowNull: true },
+  //     onDelete: "cascade",
+  //   });
+  // }
 }
 
 module.exports = Room;

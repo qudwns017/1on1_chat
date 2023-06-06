@@ -23,7 +23,7 @@ const Chat = ({ location }) => {
 
   const dispatch = useDispatch();
 
-  const onSubmitHandler = (event) => {
+  const sendMessage = (event) => {
     event.preventDefault();
 
     let body = {
@@ -36,10 +36,21 @@ const Chat = ({ location }) => {
       if (response.payload.addChatSuccess) {
         console.log("메시지 전송 완료");
       } else {
-        alert("메시지 전송에 실패했습니다.");
+        console.log("CODE 201");
       }
     });
+
+    if (message) {
+      // console.log(message)
+      socket.emit("sendMessage", message, () => setMessage(""));
+    }
   };
+
+  // const onSubmitHandler = (event) => {
+  //   console.log("작동해라제발");
+  //   event.preventDefault();
+
+  // };
   useEffect(() => {
     // 여기선 name과 room을 url에서 가져온다.
     // 이유는 setRoom과 setName이 적용되기 전에 socket.emit('join')이 실행되기 때문이다.
@@ -72,30 +83,23 @@ const Chat = ({ location }) => {
     });
   }, []);
 
-  const sendMessage = (event) => {
-    event.preventDefault();
-
-    if (message) {
-      // console.log(message)
-      socket.emit("sendMessage", message, () => setMessage(""));
-    }
-  };
-
   return (
-    <form onSubmit={onSubmitHandler}>
-      <div className="outerContainer">
-        <div className="container">
-          <InfoBar room={room} />
-          <Messages messages={messages} name={name} />
-          <Input
-            message={message}
-            setMessage={setMessage}
-            sendMessage={sendMessage}
-          />
-        </div>
-        {/* <TextContainer users={users} /> */}
+    <div className="outerContainer">
+      <div className="container">
+        <InfoBar room={room} />
+        <Messages messages={messages} name={name} />
+        <Input
+          message={message}
+          setMessage={setMessage}
+          sendMessage={sendMessage}
+          type="submit"
+        />
+        <button className="sendButton" onClick={(e) => sendMessage(e)}>
+          전송
+        </button>
       </div>
-    </form>
+      {/* <TextContainer users={users} /> */}
+    </div>
   );
 };
 

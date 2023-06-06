@@ -31,12 +31,12 @@ class Chat extends Sequelize.Model {
       }
     );
   }
-  static associate(db) {
-    db.Chat.belongsTo(db.Room, {
-      foreignKey: { name: "roomid", allowNull: true },
-      onDelete: "cascade",
-    });
-  }
+  // static associate(db) {
+  //   db.Chat.belongsTo(db.Room, {
+  //     foreignKey: { name: "roomid", allowNull: true },
+  //     onDelete: "cascade",
+  //   });
+  // }
 }
 
 module.exports = Chat;
