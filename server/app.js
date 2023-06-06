@@ -5,29 +5,21 @@ const http = require("http");
 
 const cors = require("cors");
 const roomRouter = require("./routes/room");
+const chatRouter = require("./routes/chat");
 const { addUser, removeUser, getUser, getUsersInRoom } = require("./users");
 
-const Sequelize = require("sequelize");
-const sequelize = new Sequelize(
-  config.db.database,
-  config.db.username,
-  config.db.password,
-  {
-    host: "localhost",
-    dialect: "mysql",
-  }
-);
+const db = require("./models");
 
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 
-app.get("/", (req, res) => {
-  res.send({ response: "I am alive" }).status(200);
-});
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use("/room", roomRouter);
-app.use(cors());
+app.use("/chat", chatRouter);
 
 // socket.io 동작
 io.on("connection", (socket) => {
@@ -78,7 +70,7 @@ io.on("connection", (socket) => {
   });
 });
 
-sequelize
+db.sequelize
   .sync({ force: false }) // 서버 실행시 MySQL 과 연동되도록 하는 sync 메서드
   // force : true 로 해놓으면 서버 재시작마다 테이블이 재생성됨. 테이블을 잘못 만든 경우에 true 로 설정
   .then(() => {
@@ -91,3 +83,9 @@ sequelize
 server.listen(5000, () =>
   console.log(`서버가 ${config.port} 에서 시작되었어요`)
 );
+
+app.post("/user", (req, res) => {
+  // body 출력
+  console.log(req.body);
+  res.send("ok!!!");
+});

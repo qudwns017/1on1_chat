@@ -1,5 +1,4 @@
 const Sequelize = require("sequelize");
-const roomController = require("../controllers/roomController");
 
 class Room extends Sequelize.Model {
   static init(sequelize) {
@@ -29,7 +28,7 @@ class Room extends Sequelize.Model {
   }
   static associate(db) {
     db.Room.hasMany(db.Chat, {
-      foreignKey: "RoomId",
+      foreignKey: { name: "RoomId", allowNull: true },
       onDelete: "cascade",
     });
   }

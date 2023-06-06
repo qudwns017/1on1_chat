@@ -3,13 +3,19 @@ const { Room } = db;
 
 module.exports = {
   get_room: async (req, res) => {
-    res.send({ response: "I am alive" }).status(200);
+    console.log(req.body);
+    res.send({ response: "I am room" }).status(200);
+  },
+
+  test: async (req, res) => {
+    console.log(req.body);
   },
 
   create_room: async (req, res, next) => {
     try {
       {
-        const createdRoom = await Room.create({ name: "cbj1" });
+        const createdRoom = await Room.create(req.body);
+        console.log(req.body);
 
         // const addRoomPromise = createdRoom.addRoomUser(+UserId);
         // const addRoomUserPromise = createdRoom.addRoomUser(+req.body.id);

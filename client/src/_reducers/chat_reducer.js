@@ -21,20 +21,6 @@ export default function (state = {}, action) {
   }
 }
 
-// const onSubmitHandler = (event) => {
-//   event.preventDefault();
-
-//   if (Message.length === 0) {
-//     alert("메시지를 입력해주세요.");
-//     return;
-//   }
-
-//   let body = {
-//     message: Message,
-//     roomid: Room,
-//     name: Name,
-//   };
-
 //   dispatch(addChat(body)).then((response) => {
 //     if (response.payload.addChatSuccess) {
 //       console.log("메시지 전송 완료");

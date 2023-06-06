@@ -13,13 +13,13 @@ class Chat extends Sequelize.Model {
         },
         message: {
           type: Sequelize.STRING(200),
-          alllowNull: false,
+          alllowNull: true,
           comment: "채팅 이름 ( 최대 200자, 특수문자 가능 )",
         },
         name: {
           type: Sequelize.STRING(200),
-          alllowNull: false,
-          comment: "User의 이름",
+          alllowNull: true,
+          comment: "User의 이름Z",
         },
       },
       {
@@ -33,7 +33,7 @@ class Chat extends Sequelize.Model {
   }
   static associate(db) {
     db.Chat.belongsTo(db.Room, {
-      foreignKey: "RoomId",
+      foreignKey: { name: "RoomId", allowNull: true },
       onDelete: "cascade",
     });
   }

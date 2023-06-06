@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import queryString from "query-string";
 import io from "socket.io-client";
+import { addChat } from "../_actions/chat_action";
 
 import "./Chat.css";
 import InfoBar from "./InfoBar/InfoBar";
@@ -19,6 +21,25 @@ const Chat = ({ location }) => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
 
+  const dispatch = useDispatch();
+
+  const onSubmitHander = (event) => {
+    event.preventDefault();
+
+    let body = {
+      message: message,
+      roomid: room,
+      name: name,
+    };
+
+    dispatch(addChat(body)).then((response) => {
+      if (response.payload.addChatSuccess) {
+        console.log("메시지 전송 완료");
+      } else {
+        alert("메시지 전송에 실패했습니다.");
+      }
+    });
+  };
   useEffect(() => {
     // 여기선 name과 room을 url에서 가져온다.
     // 이유는 setRoom과 setName이 적용되기 전에 socket.emit('join')이 실행되기 때문이다.
