@@ -19,7 +19,7 @@ class Chat extends Sequelize.Model {
         name: {
           type: Sequelize.STRING(200),
           alllowNull: true,
-          comment: "User의 이름Z",
+          comment: "User의 이름",
         },
       },
       {
@@ -33,7 +33,7 @@ class Chat extends Sequelize.Model {
   }
   static associate(db) {
     db.Chat.belongsTo(db.Room, {
-      foreignKey: { name: "RoomId", allowNull: true },
+      foreignKey: { name: "roomid", allowNull: true },
       onDelete: "cascade",
     });
   }

@@ -23,7 +23,7 @@ const Chat = ({ location }) => {
 
   const dispatch = useDispatch();
 
-  const onSubmitHander = (event) => {
+  const onSubmitHandler = (event) => {
     event.preventDefault();
 
     let body = {
@@ -82,18 +82,20 @@ const Chat = ({ location }) => {
   };
 
   return (
-    <div className="outerContainer">
-      <div className="container">
-        <InfoBar room={room} />
-        <Messages messages={messages} name={name} />
-        <Input
-          message={message}
-          setMessage={setMessage}
-          sendMessage={sendMessage}
-        />
+    <form onSubmit={onSubmitHandler}>
+      <div className="outerContainer">
+        <div className="container">
+          <InfoBar room={room} />
+          <Messages messages={messages} name={name} />
+          <Input
+            message={message}
+            setMessage={setMessage}
+            sendMessage={sendMessage}
+          />
+        </div>
+        {/* <TextContainer users={users} /> */}
       </div>
-      {/* <TextContainer users={users} /> */}
-    </div>
+    </form>
   );
 };
 

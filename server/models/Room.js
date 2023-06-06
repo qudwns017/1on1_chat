@@ -28,7 +28,7 @@ class Room extends Sequelize.Model {
   }
   static associate(db) {
     db.Room.hasMany(db.Chat, {
-      foreignKey: { name: "RoomId", allowNull: true },
+      foreignKey: { name: "roomid", allowNull: true },
       onDelete: "cascade",
     });
   }

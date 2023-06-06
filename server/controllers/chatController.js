@@ -10,11 +10,7 @@ module.exports = {
   create_chat: async (req, res, next) => {
     try {
       {
-        const createdChat = await Chat.create({
-          message: "cbj1233",
-          name: "cbj",
-          roomId: 3,
-        });
+        const createdChat = await Chat.create(req.body);
         console.log(req.body);
       }
 
